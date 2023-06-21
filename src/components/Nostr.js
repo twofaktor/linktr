@@ -116,8 +116,9 @@ const Nostr = () => {
     
     <div>
       <div>
+      <br>
       <h3>Nostr</h3>
-      <br></br>
+      <br>
       <EventListComponent events={events} />
       <button><a href={process.env.REACT_APP_NOSTR_OUTER_PROFILES+nip19.npubEncode(getHexPubKey())} target="_blank" rel="noreferrer">More...</a></button>
       </div>
