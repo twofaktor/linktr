@@ -1,64 +1,129 @@
-import React, { useState, useEffect } from 'react';
-import { Logo2140} from "../graphics/index.js";
+import { RelayPool } from "nostr-relaypool";
+import { nip19, utils } from "nostr-tools";
+import React, {useEffect, useMemo, useState } from "react";
+import EventListComponent from './EventListComponent';
+import { NostrLogo } from "../graphics/index.js";
 
-function Meetup() {
-  const [meetups, setMeetups] = useState([]);
-  const [meetupElement, setMeetupElement] = useState(null);
+const Nostr = () => {
+  const [events, setEvents] = useState([]);
+  const [uniqueEvents, setUniqueEvents] = useState(new Set());
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch('https://2140meetups.com/wp-json/wp/v2/meetup');
-      const data = await response.json();
-      const filteredData = data.filter(
-        (item) => item.comunidad[0].id === Number(process.env.REACT_APP_COMUNITY_ID)
-      );
-      setMeetups(filteredData);
+  const relayList = useMemo(() => [
+    "wss://nostr.multinywallet.com",
+    "wss://nostr-pub.wellorder.net",
+    "wss://relay.punkhub.me",
+    "wss://relay.snort.social",
+    "wss://bitcoiner.social",
+    "wss://relay.nostriches.org",
+    "wss://relay.orangepill.dev",
+    "wss://relay.nostr.band",
+    "wss://eden.nostr.land",
+    "wss://relay.nostr.scot",
+  ], []);
+
+  const getHexPubKey = (inNpub) => {
+    switch (true) {
+      case !inNpub && process.env.REACT_APP_NOSTR_PUBKEY?.startsWith("npub1"):
+        return nip19.decode(process.env.REACT_APP_NOSTR_PUBKEY).data;
+      case inNpub:
+        return process.env.REACT_APP_NOSTR_PUBKEY;
+      default:
+        return process.env.REACT_APP_NOSTR_PUBKEY;
     }
+  };
+  
+  const NOTES_TO_SHOW = parseInt(process.env.REACT_APP_NOSTR_NOTES_TO_SHOW);
+  useEffect(() => {
+    const onLoad = () => {
+      const relayPool = new RelayPool(relayList);
 
-    fetchData();
-  }, []);
-
-useEffect(() => {
-  if (meetups.length > 0) {
-    const meetupComponents = meetups.map((meetup) => {
-      const { id, fecha, hora, link, title: { rendered: titleRendered }, featured_image_src_large: [meetupImage] } = meetup;
-      const style = {
-        backgroundImage: `url(${meetupImage})`,
-        position: 'relative',
-        overflow: 'hidden', 
-      };
-      const decodedTitle = decodeHtml(titleRendered);
-      return (
-        <>
-        <Logo2140 className='logo2140'/>
-        <div className='meetupElementDiv' style={style} key={id}>
-          <a href={link} target="_blank" rel="noreferrer" className='meetupElement' >
-            <div className='meetupElementContent'>
-              <h4>{decodedTitle}</h4>
-              <span>📅 {fecha} 🕖 {hora.slice(0, 5)}h </span>
-            </div>
-          </a>
-        </div>
-        </>
+      relayPool.subscribe(
+        [
+          {
+            kinds: [3,10002],
+            authors: [getHexPubKey()],
+          },
+        ],
+        relayList,
+        (event, isAfterEose, relayURL) => {
+          let objRelays = [];
+          const objRecommendedRelays = [];
+          try {
+            if (event.kind === 3) {
+              objRelays = Object.keys(JSON.parse(event.content));
+            }}catch (error) {
+              console.error(error);
+            }
+            event.tags.forEach(tag => {
+              if (tag[0] === "r") {
+                objRecommendedRelays.push(tag[1]);
+              }
+            });
+            const userRelayList = [...objRelays, ...objRecommendedRelays];
+          relayPool.subscribe(
+            [
+              {
+                kinds: [0],
+                authors: [getHexPubKey()],
+                limit:1,
+              },
+              {
+                kinds: [1],
+                authors: [getHexPubKey()],
+                // since: (Math.floor((new Date().getTime() - (7 * 24 * 60 * 60 * 1000)) / 1000)),
+                limit:NOTES_TO_SHOW,
+              },
+            ],
+            userRelayList,
+            (event, isAfterEose, relayURL) => {
+              if (!uniqueEvents.has(event.id)) {
+                setUniqueEvents(new Set(uniqueEvents.add(event.id)));
+                  setEvents(events =>
+                    utils.insertEventIntoDescendingList(events, event))
+              }
+              //console.log(event, isAfterEose, relayURL);
+            },
+            undefined,
+            (events, relayURL) => {
+              //console.log(events, relayURL);
+            }
+          );
+        },
+        undefined,
+        (events, relayURL) => {
+          //console.log(events, relayURL);
+        }
       );
-    });
-    setMeetupElement(meetupComponents);
-  } else {
-    setMeetupElement(null);
-  }
-}, [meetups]);
+        
+      relayPool.onerror((err, relayUrl) => {
+        console.log("RelayPool notice", err, " from relay ", relayUrl);
+      });
+      relayPool.onnotice((relayUrl, notice) => {
+        console.log("RelayPool notice", notice, " from relay ", relayUrl);
+      });
+      return () => {
+        relayPool.close();
+      };
+    };
+    
+    window.onload = onLoad;
 
-  function decodeHtml(html) {
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = html;
-    return tempDiv.textContent || tempDiv.innerText;
-  }
-
+    return () => {
+      window.onload = null;
+    };
+  }, []);
   return (
-    <>
-      {meetupElement}
-    </>
+    
+    <div>
+      <div>
+      <div className="nostrHeading">
+        <NostrLogo className="nostrLogo"/>
+        <h3>Nostr</h3>
+      </div>
+      <EventListComponent events={events} />
+      </div>
+    </div>
   );
-}
+};
 
-export default Meetup;
+export default Nostr;
