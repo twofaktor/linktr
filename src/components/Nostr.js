@@ -115,9 +115,12 @@ const Nostr = () => {
   return (
     
     <div>
+    <div>
       <div className="nostrHeading">
         <NostrLogo className="nostrLogo"/>
         <h3>Nostr</h3>
+      </div>
+      <EventListComponent events={events} />
       </div>
     </div>
   );
