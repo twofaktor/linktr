@@ -9,7 +9,7 @@ const Nostr = () => {
   const [uniqueEvents, setUniqueEvents] = useState(new Set());
 
   const relayList = useMemo(() => [
-    "wss://nostr.multinywallet.com",
+    "wss://nostr.mutinywallet.com",
     "wss://nostr-pub.wellorder.net",
     "wss://relay.punkhub.me",
     "wss://relay.snort.social",
