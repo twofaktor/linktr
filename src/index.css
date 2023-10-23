@@ -1,0 +1,325 @@
+:root{
+  --default-border-radius: 15px;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+	background-color: var(--elements-b-color);
+  font-size: small;
+	padding: 5px 10px;
+	border-radius: var(--default-border-radius);
+  color: var(--accent-color);
+}
+
+button {
+	margin: 15px;
+	background-color: var(--elements-b-color);
+  color: var(--text-color);
+	border-radius: var(--default-border-radius);
+  border: none;
+  cursor: pointer;
+	text-align: center;
+}
+
+button:hover {
+  background-color: var(--hover-b-color);
+}
+
+img{
+  padding: 0px 0px;
+}
+
+a {
+  color: var(--a-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--hover-color);
+
+}
+a code {
+  text-decoration: none;
+}
+a code:hover {
+	color: var(--hover-color);
+}
+h1, h2, h3, h4{
+  color: var(--text-color);
+  margin: 0px;
+  margin-bottom: 2px;
+}
+a svg path {
+  fill: var(--accent-color);
+}
+a svg:hover path {
+  fill: var(--hover-color);
+}
+button a {
+	display: block ;
+  padding: 15px 15px;
+}
+svg {
+	width: 100%;
+  overflow: visible;
+}
+hr {
+	color: var(--hover-b-color);
+	margin: 10px 0px;
+}
+blockquote {
+	border-left: 2px solid var(--background-color);
+	padding-left: 5px;
+}
+div.message-kind0, div.message-kind1{
+  background-color: var(--container-b-color);
+  margin: 10px;
+  padding: 15px;
+  border-radius: var(--default-border-radius);
+  word-wrap: break-word;
+}
+.svg-src {
+	background: var(--elements-b-color);
+	border-radius: 25px;
+	padding: 10px;
+  margin: 0px 5px;	
+  width: auto;
+}
+.selectThemeButtonBox {
+	position: fixed;
+	top: 10px;
+	right: 10px;
+}
+.themeButton {
+	margin: 1px;
+	border: 1px solid var(--accent-color);
+	padding: 12px;
+	border-radius: 64px;
+  transform: 0.2s;
+}
+.themeButton:hover {
+  transform: scale(1.1);
+}
+.meetupElement h4,
+.meetupElement span{
+	background: var(--translucid-b-color);
+	padding: 5px;
+	border-radius: var(--default-border-radius);
+  text-shadow: 0 0 10px var(--elements-b-color);
+  margin-bottom: 10px;
+}
+.meetupElement h4:hover {
+  color: var(--hover-color);
+}
+.mainDiv {
+	width: 30em;
+  margin-top: 40px;
+}
+
+.mainContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: var(--container-b-color);
+	padding: 30px 15px;
+	border-radius: var(--default-border-radius);
+}
+
+.meetupElementDiv {
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: var(--default-border-radius);
+  margin: 15px 0px;
+}
+
+.meetupElementContent {
+  padding:15px;
+  background-color: var(--translucid-b-color);
+}
+.meetupContainer {
+	text-align: center;
+}
+
+.linkContainer, .donations {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+  text-align: center;
+}
+.nostrContainer{
+  word-break: break-word;
+  text-align: center;
+}
+
+.nostr-img {
+	max-width: 100px;
+	margin: 10px;
+}
+.pfp-container{
+  margin: 10px 10px 20px 10px;
+}
+
+.pfp-image{
+  height: 100px;
+  width: auto;
+  border-radius: 50px;
+}
+
+.exit-icon {
+	max-width: 18px;
+  opacity: 80%;
+}
+
+.header-img {
+	max-width: 120px;
+	border-radius: 80px;
+	margin-bottom: 15px;
+}
+
+.dbuttons.inner {
+	width: 50%;
+}
+
+.noteContainer {
+	background-color: var(--container-b-color);
+	padding: 15px;
+	border-radius: var(--default-border-radius);
+	margin: 15px 0px;
+  text-align: left;
+}
+.noteContainerKind0 {
+  text-align: center;
+}
+.noteContentContainer, .noteContainerKind0 {
+	margin: 10px 0px;
+}
+.noteContentContainer a {
+	text-decoration: underline;
+  padding: 0 4px;
+}
+.noteContentContainer p {
+	display: inline;
+}
+.isImage, .isVideo {
+	width: 100%;
+	max-width: 500px;
+	display: block;
+	margin: 15px 0px;
+}
+.urlPreview{
+  padding: 5px 10px;
+	background: var(--hover-b-color);
+	border-radius: var(--default-border-radius);
+  margin: 10px 0px;
+}
+
+.logo2140 {
+	width: 70%;
+  background: black;
+  margin-top: 21px;
+  padding: 0px 21px;
+  border-radius: 85px;
+}
+.nostrLogo {
+	max-height: 28px;
+	background: var(--accent-color);
+	width: auto;
+	border-radius: 15px;
+	padding: 6px;
+	margin: 12px;
+}
+.nostrLogo path {
+	fill: var(--hover-b-color);
+}
+.nostr_pfp {
+	max-width: 150px;
+	border-radius: 64px;
+}
+.noteButtonBox {
+	display: flex;
+	justify-content: center;
+}
+.noteDateSpan {
+	display: block;
+	margin: 10px 0px;
+}
+.noteTagContainer {
+	margin-bottom: 15px;
+}
+.creditsContainer {
+	position: fixed;
+	color: var(--accent-color);
+	text-align: center;
+	background: var(--container-b-color);
+	padding: 15px;
+	border-radius: 0 var(--default-border-radius) 0 0;
+	bottom: 0;
+  left: 0;
+	opacity: 0.5;
+}
+.creditsContainer:hover {
+ opacity: 1;
+}
+.nostrHeading {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  margin-top: 15px;
+}
+.bannerBackground {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 50%;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	z-index: -1;
+}
+
+
+@media only screen and (max-width: 767px) {
+  .header-img{
+    max-width: 100px;
+    margin: 5px;
+  }
+  .mainDiv {
+    width: auto;
+    margin: 10px 10px 0px 10px;
+  }
+  .mainContainer {
+    background: var(--container-b-color);
+  }
+  h1 {
+    font-size: 25px;
+  }
+  body {
+    display: block;
+    height: auto;
+  }
+
+  .dbuttons.inner {
+    width: auto;
+  }
+  .noteContainer {
+    background-color: var(--container-b-color);
+    border-top: 1px solid var(--accent-color);
+  }
+  .creditsContainer {
+    display: none;
+  }
+}
