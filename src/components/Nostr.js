@@ -6,19 +6,15 @@ import { NostrLogo } from "../graphics/index.js";
 
 const Nostr = () => {
   const [events, setEvents] = useState([]);
-  const [uniqueEvents, setUniqueEvents] = useState(new Set());
+  //const [uniqueEvents, setUniqueEvents] = useState(new Set());
 
   const relayList = useMemo(() => [
-    "wss://nostr.mutinywallet.com",
-    "wss://nostr-pub.wellorder.net",
-    "wss://relay.punkhub.me",
-    "wss://relay.snort.social",
-    "wss://bitcoiner.social",
-    "wss://relay.nostriches.org",
-    "wss://relay.orangepill.dev",
-    "wss://relay.nostr.band",
-    "wss://eden.nostr.land",
-    "wss://relay.nostr.scot",
+    "wss://nos.lol/",
+    "wss://relay.nostr.band/",
+    "wss://nostr.wine/",
+    "wss://purplepag.es/",
+    "wss://relayable.org/",
+    "wss://relay.damus.io",
   ], []);
 
   const getHexPubKey = (inNpub) => {
@@ -31,9 +27,8 @@ const Nostr = () => {
         return process.env.REACT_APP_NOSTR_PUBKEY;
     }
   };
-  
-  const NOTES_TO_SHOW = parseInt(process.env.REACT_APP_NOSTR_NOTES_TO_SHOW);
   useEffect(() => {
+    const NOTES_TO_SHOW = parseInt(process.env.REACT_APP_NOSTR_NOTES_TO_SHOW);
     const onLoad = () => {
       const relayPool = new RelayPool(relayList);
 
@@ -65,22 +60,17 @@ const Nostr = () => {
               {
                 kinds: [0],
                 authors: [getHexPubKey()],
-                limit:1,
               },
               {
                 kinds: [1],
                 authors: [getHexPubKey()],
-                // since: (Math.floor((new Date().getTime() - (7 * 24 * 60 * 60 * 1000)) / 1000)),
                 limit:NOTES_TO_SHOW,
               },
             ],
             userRelayList,
             (event, isAfterEose, relayURL) => {
-              if (!uniqueEvents.has(event.id)) {
-                setUniqueEvents(new Set(uniqueEvents.add(event.id)));
-                  setEvents(events =>
-                    utils.insertEventIntoDescendingList(events, event))
-              }
+              setEvents(events =>
+              utils.insertEventIntoDescendingList(events, event))
               //console.log(event, isAfterEose, relayURL);
             },
             undefined,
@@ -107,20 +97,22 @@ const Nostr = () => {
     };
     
     window.onload = onLoad;
-
+    
     return () => {
       window.onload = null;
     };
-  }, []);
+  }, [relayList]);
   return (
-    
     <div>
-    <div>
-      <div className="nostrHeading">
-        <NostrLogo className="nostrLogo"/>
-        <h3>Nostr</h3>
-      </div>
+      <div>
+        <div className="nostrHeading">
+          <NostrLogo className="nostrLogo"/>
+          <h3>Nostr</h3>
+        </div>
       <EventListComponent events={events} />
+      {parseInt(process.env.REACT_APP_NOSTR_NOTES_TO_SHOW) > 0 && (
+          <button><a href={ process.env.REACT_APP_NOSTR_OUTER_PROFILES + nip19.npubEncode(getHexPubKey()) } target="_blank" rel="noreferrer" > More... </a></button>
+        )}
       </div>
     </div>
   );
