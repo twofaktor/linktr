@@ -12,7 +12,7 @@ export const Donations = () => {
 
   return (
     <div className='donations'>
-      <h3>🤌Donate ₿itcoin<br>🔗Onchain | Lightning⚡</h3>
+      <h3>🤌Donate ₿itcoin<br></br>🔗Onchain | Lightning⚡</h3>
       {renderedLinks}
     </div>
   );
