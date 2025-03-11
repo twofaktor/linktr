@@ -17,6 +17,7 @@ export const Links = () => {
           {process.env.REACT_APP_SHORT_BIO}
         </p>
       </div>
+      <h3>Links</h3>
       {renderedLinks}
     </div>
   );
