@@ -12,8 +12,8 @@ const Nostr = () => {
     "wss://bostr.bitcointxoko.com",
     "wss://relay.minibolt.info",
     "wss://relay.nostr.band/all",
-    "wss://nostr-pub.wellorder.net",
-    "wss://no.str.cr",
+    "wss://multiplexer.huszonegy.world",
+    "wss://bostr.shop",
     "wss://pyramid.fiatjaf.com",
     "wss://bitcoiner.social",
   ], []);
