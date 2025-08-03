@@ -1,3 +1,3 @@
 # Personal Linktr (FOSS)
 
-My personal Linktr (FOSS) is available at https://2faktor-linktr.minibolt.info/
+My personal Linktr (FOSS) is available at https://twofaktor-linktr.minibolt.info/
