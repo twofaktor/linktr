@@ -9,12 +9,10 @@ const Nostr = () => {
   //const [uniqueEvents, setUniqueEvents] = useState(new Set());
 
   const relayList = useMemo(() => [
-    "wss://bostr.bitcointxoko.com",
-    "wss://relay.minibolt.info",
-    "wss://relay.nostr.band/all",
-    "wss://multiplexer.huszonegy.world",
     "wss://bostr.shop",
-    "wss://pyramid.fiatjaf.com",
+    "wss://relay.noswhere.com",
+    "wss://relay.minibolt.info",
+    "wss://nostr.oxtr.dev",
     "wss://bitcoiner.social",
   ], []);
 
